@@ -12,7 +12,11 @@ export default async function Home() {
     //webpage tht is same for all the users then , what we do is statically geenrate the file that is the files are generated on build time .
     //we can revalidate the webpage by using next revalidate in some seconds for example 10 seconds 
 
-  const response = await fetch('https://sum-server.100xdevs.com/todos');
+  const response = await fetch('https://sum-server.100xdevs.com/todos',{
+    next : {
+      revalidate : 5 //revalidate the statically generated on every 5 seconds
+    }
+  });
   const data = await response.json();
   const stringified = JSON.stringify(data);
   console.log("the data from thhe backend is  : ", stringified );
