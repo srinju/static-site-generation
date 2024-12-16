@@ -1,3 +1,4 @@
+import { revalidatetodos } from "./lib/actions/action1";
 
 type Todo = {
   id : string | number
@@ -14,11 +15,12 @@ export default async function Home() {
 
   const response = await fetch('https://sum-server.100xdevs.com/todos',{
     next : {
-      revalidate : 5 //revalidate the statically generated on every 5 seconds
+      tags : ['todos'] //revalidate the statically generated on every 5 seconds
     }
   });
   const data = await response.json();
   const stringified = JSON.stringify(data);
+  revalidatetodos();
   console.log("the data from thhe backend is  : ", stringified );
 
   return (
